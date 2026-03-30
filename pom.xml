@@ -11,7 +11,7 @@
 
       <!--      <source>11</source>-->
 <!--      <target>11</target>-->
-    <javafx.version>21</javafx.version>
+    <javafx.version>17</javafx.version>
     <junit.version>5.10.0</junit.version>
   </properties>
 
@@ -19,7 +19,7 @@
     <dependency>
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-controls</artifactId>
-      <version>${javafx.version}</version>
+      <version>17.0.12</version>
     </dependency>
 
     <dependency>
