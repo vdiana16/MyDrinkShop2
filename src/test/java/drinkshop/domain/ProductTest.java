@@ -11,17 +11,17 @@ class ProductTest {
     Product product;
 
     @BeforeEach
-     void setUp() {
+    void setUp() {
         product =new Product(100, "Limonada", 10.0, CategorieBautura.JUICE, TipBautura.WATER_BASED);
     }
 
     @AfterEach
-     void tearDown() {
+    void tearDown() {
         product = null;
     }
 
     @Test
-     void testGetId() {
+    void testGetId() {
         assert 100 == product.getId();
     }
 
