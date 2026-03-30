@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ProductTest {
+public class ProductTest {
 
     Product product;
 
@@ -21,7 +21,7 @@ class ProductTest {
     }
 
     @Test
-    void testGetId() {
+    public void testGetId() {
         assert 100 == product.getId();
     }
 
