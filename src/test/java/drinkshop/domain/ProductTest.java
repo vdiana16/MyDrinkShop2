@@ -21,22 +21,22 @@ public class ProductTest {
     }
 
     @Test
-    public void testgetId() {
+    public void getId() {
         assert 100 == product.getId();
     }
 
     @Test
-    public void testGetNume() {
+    public void getNume() {
         assert "Limonada".equals(product.getNume());
     }
 
     @Test
-    public void testGetPret() {
+    public void getPret() {
         assert 10.0 == product.getPret();
     }
 
     @Test
-    public void testGetCategorie() {
+    public void getCategorie() {
         assert CategorieBautura.JUICE.equals(product.getCategorie());
     }
 
@@ -47,24 +47,24 @@ public class ProductTest {
     }
 
     @Test
-    public void testGetTip() {
+    public void getTip() {
         assert TipBautura.WATER_BASED.equals(product.getTip());
     }
 
     @Test
-    public void testSetTip() {
+    public void setTip() {
         product.setTip(TipBautura.BASIC);
         assert TipBautura.BASIC.equals(product.getTip());
     }
 
     @Test
-    public void testSetNume() {
+    public void setNume() {
         product.setNume("newLimonada");
         assert "newLimonada".equals(product.getNume());
     }
 
     @Test
-    public void testSetPret() {
+    public void setPret() {
         product.setPret(10.05);
         assert 10.05 == product.getPret();
     }
