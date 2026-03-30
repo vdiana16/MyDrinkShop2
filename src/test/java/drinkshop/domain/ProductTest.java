@@ -21,7 +21,7 @@ class ProductTest {
     }
 
     @Test
-    void testGetId() {
+    public void testGetId() {
         assert 100 == product.getId();
     }
 
