@@ -4,8 +4,10 @@
   <artifactId>MyDrinkShop</artifactId>
   <version>1.0-SNAPSHOT</version>
   <properties>
-    <maven.compiler.source>17</maven.compiler.source>
-    <maven.compiler.target>17</maven.compiler.target>
+    <!--<maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>-->
+      <source>11</source>
+      <target>11</target>
     <javafx.version>21</javafx.version>
     <junit.version>5.10.0</junit.version>
   </properties>
