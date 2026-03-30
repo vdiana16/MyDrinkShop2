@@ -6,17 +6,17 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ProductTest {
+public class ProductTest {
 
     Product product;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         product =new Product(100, "Limonada", 10.0, CategorieBautura.JUICE, TipBautura.WATER_BASED);
     }
 
     @AfterEach
-    void tearDown() {
+    public void tearDown() {
         product = null;
     }
 
