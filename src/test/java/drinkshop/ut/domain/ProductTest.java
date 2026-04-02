@@ -26,5 +26,11 @@ class ProductTest {
         assert 100 == product.getId();
     }
 
+    @Test
+    void setNume() {
+        product.setNume("Limonade");
+        assert "Limonade".equals(product.getNume());
+    }
+
 
 }
