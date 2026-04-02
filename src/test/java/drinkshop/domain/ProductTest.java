@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.*;
     }
 
     @Test
-     void testGetId() {
+    void test_getId() {
         assert 100 == product.getId();
     }
 

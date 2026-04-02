@@ -11,8 +11,8 @@
 
       <!--      <source>11</source>-->
 <!--      <target>11</target>-->
-    <javafx.version>17</javafx.version>
-    <junit.version>5.10.0</junit.version>
+<!--    <javafx.version>17</javafx.version>-->
+<!--    <junit.version>5.10.0</junit.version>-->
   </properties>
 
   <dependencies>
