@@ -1,14 +1,13 @@
-package drinkshop.service;
+package drinkshop.it.service;
 
 import drinkshop.domain.Stoc;
 import drinkshop.repository.Repository;
 import drinkshop.repository.file.FileStocRepository;
+import drinkshop.service.StocService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class StocServiceTest {
 
