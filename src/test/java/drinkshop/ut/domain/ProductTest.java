@@ -32,5 +32,9 @@ class ProductTest {
         assert "Limonade".equals(product.getNume());
     }
 
+    @Test
+    void getNume() {
+        assert "Limonada".equals(product.getNume());
+    }
 
 }

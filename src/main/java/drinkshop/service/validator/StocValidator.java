@@ -9,6 +9,9 @@ public class StocValidator implements Validator<Stoc> {
 
         String errors = "";
 
+        if (stoc == null)
+            errors +="Stoc null\n";
+
         if (stoc.getId() <= 0)
             errors += "ID invalid!\n";
 

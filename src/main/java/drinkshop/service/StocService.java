@@ -4,6 +4,8 @@ import drinkshop.domain.IngredientReteta;
 import drinkshop.domain.Reteta;
 import drinkshop.domain.Stoc;
 import drinkshop.repository.Repository;
+import drinkshop.service.validator.StocValidator;
+import drinkshop.service.validator.Validator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,8 +15,11 @@ public class StocService {
 
     private final Repository<Integer, Stoc> stocRepo;
 
-    public StocService(Repository<Integer, Stoc> stocRepo) {
+    private final Validator<Stoc> stocValidator;
+
+    public StocService(Repository<Integer, Stoc> stocRepo, Validator<Stoc> stocValidator) {
         this.stocRepo = stocRepo;
+        this.stocValidator = stocValidator;
     }
 
     public List<Stoc> getAll() {
@@ -22,6 +27,7 @@ public class StocService {
     }
 
     public void add(Stoc s) {
+        stocValidator.validate(s);
         stocRepo.save(s);
     }
 

@@ -12,6 +12,9 @@ public class OrderValidator implements Validator<Order> {
 
         String errors = "";
 
+        if (order == null)
+            errors +="Order null\n";
+
         if (order.getId() <= 0)
             errors += "ID comanda invalid!\n";
 
