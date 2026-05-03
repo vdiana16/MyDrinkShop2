@@ -18,12 +18,12 @@ public class DrinkShopService {
     private final DailyReportService report;
 
     public DrinkShopService(
-            Repository<Integer, Product> productRepo,
+            Repository<Integer, Product> productRepo, Validator<Product> productValidator,
             Repository<Integer, Order> orderRepo,
             Repository<Integer, Reteta> retetaRepo,
             Repository<Integer, Stoc> stocService, Validator<Stoc> stocValidator
     ) {
-        this.productService = new ProductService(productRepo);
+        this.productService = new ProductService(productRepo, productValidator);
         this.orderService = new OrderService(orderRepo, productRepo);
         this.retetaService = new RetetaService(retetaRepo);
         this.stocService = new StocService(stocService, stocValidator);

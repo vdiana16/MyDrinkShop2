@@ -7,6 +7,7 @@ import drinkshop.repository.file.FileProductRepository;
 import drinkshop.repository.file.FileRetetaRepository;
 import drinkshop.repository.file.FileStocRepository;
 import drinkshop.service.DrinkShopService;
+import drinkshop.service.validator.ProductValidator;
 import drinkshop.service.validator.StocValidator;
 import drinkshop.service.validator.Validator;
 import javafx.application.Application;
@@ -27,9 +28,10 @@ public class DrinkShopApp extends Application {
 
         // ---------- Initializare Validator-i ----------
         Validator<Stoc> stocValidator = new StocValidator();
+        Validator<Product> productValidator = new ProductValidator();
 
         // ---------- Initializare Service ----------
-        DrinkShopService service = new DrinkShopService(productRepo, orderRepo, retetaRepo, stocRepo, stocValidator);
+        DrinkShopService service = new DrinkShopService(productRepo, productValidator, orderRepo, retetaRepo, stocRepo, stocValidator);
 
         // ---------- Incarcare FXML ----------
 
