@@ -9,7 +9,7 @@ import org.junit.jupiter.api.*;
 
 import java.util.Arrays;
 
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -22,17 +22,18 @@ public class StocServiceMockitoTest {
     private StocService stocService;
 
     @BeforeEach
-    public void setUp(){
-        //cream obiecte mock
-        stoc = mock(Stoc.class);// in mod intentionat folosim obiecte mock pentru obiecte din pachetul domain sau model
-        stocValidator = mock (Validator.class);
-        stocRepo = mock( Repository.class);
-        //cream obiectul testat
+    public void setUp() {
+        // Creăm obiecte mock
+        stoc = mock(Stoc.class); // În mod intenționat folosim obiecte mock pentru entități (cerință specială Lab04)
+        stocValidator = mock(Validator.class);
+        stocRepo = mock(Repository.class);
+
+        // Creăm obiectul testat
         stocService = new StocService(stocRepo, stocValidator);
     }
 
-    @BeforeEach
-    public void tearDown(){
+    @AfterEach // CORECTAT: Era @BeforeEach, acum este @AfterEach pentru a rula la finalul fiecărui test
+    public void tearDown() {
         stocService = null;
         stocRepo = null;
         stocValidator = null;
@@ -42,69 +43,69 @@ public class StocServiceMockitoTest {
     @Test
     @Order(1)
     public void testGetAllValid() {
-        //cream obiecte mock suplimentare
+        // Creăm obiecte mock suplimentare
         Stoc stoc1 = mock(Stoc.class);
         Stoc stoc2 = mock(Stoc.class);
-        //asociem comportamente obiectelor mock
+
+        // Asociem comportamente obiectelor mock
         when(stocRepo.findAll()).thenReturn(Arrays.asList(stoc1, stoc2));
 
-        //testam metoda getAll din StocService cu assert
-        assert 2 == stocService.getAll().size();
+        // CORECTAT: Testăm metoda getAll din StocService folosind assertEquals din JUnit 5
+        assertEquals(2, stocService.getAll().size(), "Lista returnată ar trebui să aibă dimensiunea 2");
 
-        //verificam interactiunile obiectului testat cu obiectele mock
+        // Verificăm interacțiunile obiectului testat cu obiectele mock
         verify(stocValidator, never()).validate(stoc1);
-        verify(stocRepo).findAll();
         verify(stocRepo, times(1)).findAll();
     }
 
     @Test
     @Order(2)
     void testAddInvalid() {
-        //simulam adaugarea unui stoc invalid, i.e., Stoc s = new Stoc(-1, "", -5.0, -1.0);
+        // Simulăm adăugarea unui stoc invalid
+        // Stabilim comportamente pentru obiectele mock
 
-        //stabilim comportamente pentru obiectele mock: Stoc, Validator, Repository
-        when(stoc.getId()).thenReturn(-1);
+        // Folosim lenient() pentru stocRepo.save ca să nu primim eroare de tip UnnecessaryStubbingException,
+        // deoarece ne așteptăm ca execuția să se oprească la validator și save să nu fie apelat.
+        lenient().when(stocRepo.save(stoc)).thenReturn(stoc);
+
         doThrow(new ValidationException("ID invalid!\n")).when(stocValidator).validate(stoc);
-        when(stocRepo.save(stoc)).thenReturn(stoc);//nu este obligatoriu sa facem aceasta asociere, nu se va ajunge la apelul save
 
-        //testam metoda add si evaluam apelul cu assert
-        try{
+        // CORECTAT: Folosim assertThrows în loc de blocul try-catch
+        ValidationException exception = assertThrows(ValidationException.class, () -> {
             stocService.add(stoc);
-        }catch (Exception e){
-            assert e.getClass().equals(ValidationException.class);
-        }
+        }, "Metoda ar trebui să arunce ValidationException pentru un stoc invalid");
 
-        //verificam interactiunile oiectului testat cu obiectele mock
-        verify(stoc, never()).getId();
+        assertEquals("ID invalid!\n", exception.getMessage());
+
+        // Verificăm interacțiunile obiectului testat cu obiectele mock
         verify(stocValidator, times(1)).validate(stoc);
-        verify(stocRepo, never()).save(any());
+        verify(stocRepo, never()).save(any()); // Ne asigurăm că nu se face nicio salvare
     }
 
     @Test
     @Order(3)
     void testAddValid() {
-        //cream obiecte mock suplimentare nefolosite in asocierea comportamentelor obiectelor mock
-        Stoc stoc1= mock(Stoc.class);
-        //asociem comportament obiectului mock, i.e., cazul in care nu se arunca exceptie
+        // Creăm obiecte mock suplimentare nefolosite
+        Stoc stoc1 = mock(Stoc.class);
+
+        // Asociem comportament obiectului mock (cazul în care validarea trece cu succes)
         doNothing().when(stocValidator).validate(stoc);
         when(stocRepo.save(stoc)).thenReturn(stoc);
 
-        // apelam metoda add si evaluam rezultatul cu fail
-        try{
+        // CORECTAT: Folosim assertDoesNotThrow în loc de blocul try-catch
+        assertDoesNotThrow(() -> {
             stocService.add(stoc);
-        }catch (Exception e){
-            fail("Invalid add operation");
-        }
+        }, "Metoda nu ar trebui să arunce nicio excepție la adăugarea unui stoc valid");
 
-        assert 0==stocService.getAll().size();
+        // Dimensiunea este 0 deoarece stocRepo.findAll() întoarce o listă goală (nu a fost mock-uit în acest test)
+        assertEquals(0, stocService.getAll().size());
 
-        // verificari ale interactiunii obiectului testat cu obiectele mock
+        // Verificări ale interacțiunii
         verify(stocValidator, times(1)).validate(stoc);
         verify(stocRepo, times(1)).save(stoc);
 
-        //verificari ale interactiunii obiectului testat cu obiecte mock nefolosite propriu-zis, i.e., stoc1
-        verify(stocValidator, times(0)).validate(stoc1);
+        // Verificări ale interacțiunii cu mock-uri nefolosite (stoc1)
+        verify(stocValidator, never()).validate(stoc1);
         verify(stocRepo, never()).save(stoc1);
     }
-
 }

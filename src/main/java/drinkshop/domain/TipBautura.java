@@ -7,5 +7,9 @@ public enum TipBautura {
     WATER_BASED,
     PLANT_BASED,
     POWDER,
-    ALL
+    ALL,
+
+    DIVERSE,
+    RACORITOARE,
+    CAFEA
 }

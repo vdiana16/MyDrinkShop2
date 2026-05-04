@@ -12,5 +12,8 @@ public enum CategorieBautura {
     JUICE,
     SMOOTHIE,
 
-    ALL
+    ALL,
+
+    NON_ALCOOLIC,
+
 }
